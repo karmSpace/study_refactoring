@@ -29,10 +29,10 @@ function statment(){
         // 청구 내역을 출력한다.
         //playFor(perf) 변수 인라인
         // thisAmount를 playFor(perf) 인라인 시켜주면 
-        result += ` ${playFor(perf).name}: ${format(playFor(perf)/100)} (${perf.audience}석)\n`;
+        result += ` ${playFor(perf).name}: ${usd(playFor(perf))} (${perf.audience}석)\n`;
         totalAmount += playFor(perf);
     }
-    result += `총액: ${format(totalAmount/100)}\n`;
+    result += `총액: ${usd(totalAmount)}\n`;
     result += `적립 포인트: ${volumeCredits}점\n`;
     return result;
 }
@@ -73,4 +73,9 @@ function volumeCreditsFor(perf) {
     if("comedy"===playFor(perf).type)
          result += Math.floor(perf.audience / 5);
     return result;
+}
+
+// usd 포맷리턴해주는 함수 생성 
+function usd(aNumber) {
+    return new Intl.NumberFormat("en-US",{style:"currency", currency:"USD",maximumFractionDigits:2}).format(aNumber/100);
 }
